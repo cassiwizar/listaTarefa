@@ -1,47 +1,48 @@
-let tarefaInput = document.getElementById('tarefaInput');
+let tarefas = [
+    { id: 1, texto: "Estudar para a prova", concluida: false },
+    { id: 2, texto: "Viajar no tempo para impedir John Lenon", concluida: true },
+    { id: 3, texto: "Ler um capítulo perdido", concluida: false },
+    { id: 4, texto: "Twitch Ap jungle", concluida: true },
+    { id: 5, texto: "Lavar a louça", concluida: false },
+    { id: 6, texto: "Capturar um urso nos emirados arabes", concluida: false },
+    { id: 7, texto: "Desenhar onibus no rio de janeiro", concluida: true },
+    { id: 7, texto: "Combar de rammus Q R E W AA AA AA", concluida: true },
 
-function adicionarTarefa() {
-    const tarefa = document.createElement("div");
-    tarefa.className = "tarefa";
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.className = "checkbox";
-    tarefa.appendChild(checkbox); 
-
-    checkbox.addEventListener("change", function() {
-        if (checkbox.checked) {
-            tarefaTexto.style.textDecoration = "line-through";
-        } else {
-            tarefaTexto.style.textDecoration = "none";
-        }
+];
+  
+  function renderizarTarefas() {
+    const lista = document.getElementById("lista");
+    const filtro = document.getElementById("filtroSelect").value;
+  
+    lista.innerHTML = ""; 
+  
+    const tarefasFiltradas = tarefas.filter(tarefa => {
+      if (filtro === "concluidas") return tarefa.concluida;
+      if (filtro === "nao-concluidas") return !tarefa.concluida;
+      return true; 
     });
-    
-    const tarefaTexto = document.createElement("span");
-    tarefaTexto.textContent = tarefaInput.value;
-    tarefa.appendChild(tarefaTexto); 
-
-    const img = document.createElement("img");
-    img.src = "download-removebg-preview.png";
-    img.onclick = remover;
-    tarefa.appendChild(img);
-    document.getElementById("lista").appendChild(tarefa); 
-}
-
-function remover(event) {
-    const tarefa = event.target.parentElement;
-    tarefa.remove();
-}
-function filtrarTarefas() {
-    const filtro = document.getElementById("filtroInput").value.toLowerCase();
-    const tarefas = document.querySelectorAll(".tarefa");
-
-    tarefas.forEach(tarefa => {
-        const texto = tarefa.querySelector("span").textContent.toLowerCase();
-        if (texto.includes(filtro)) {
-            tarefa.style.display = "flex"; 
-        } else {
-            tarefa.style.display = "none";
-        }
+  
+    tarefasFiltradas.forEach(tarefa => {
+      const item = document.createElement("li");
+      item.className = "tarefa";
+      if (tarefa.concluida) item.classList.add("concluida");
+  
+      const checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = tarefa.concluida;
+      checkbox.addEventListener("change", () => {
+        tarefa.concluida = checkbox.checked;
+        renderizarTarefas(); 
+      });
+  
+      const span = document.createElement("span");
+      span.textContent = tarefa.texto;
+  
+      item.appendChild(checkbox);
+      item.appendChild(span);
+      lista.appendChild(item);
     });
-}
+  }
+  
+  renderizarTarefas();
+  

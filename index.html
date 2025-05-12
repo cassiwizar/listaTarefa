@@ -3,19 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lista para fazer 😎</title>
-  <link rel="icon" href="https://img.freepik.com/vetores-gratis/verifique-o-estilo-de-glifo-do-calendario_78370-6546.jpg?semt=ais_hybrid&w=740">  
-     <link rel="stylesheet" href="estilo.css">
+  <title>Lista de Tarefas</title>
+  <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
   <div class="container">
-    <h1>To-Do List</h1>
-    <input type="text" id="tarefaInput" placeholder="Adicionar nova tarefa...">
-    <button onclick="adicionarTarefa()">Adicionar</button>
-    <br><br>
-    <input type="text" id="filtroInput" placeholder="Encontre a sua tarefa" oninput="filtrarTarefas()">
+    <h1>Minha Lista de Tarefas</h1>
+
+    <select id="filtroSelect" onchange="renderizarTarefas()">
+      <option value="todas">Todas</option>
+      <option value="concluidas">Feitas</option>
+      <option value="nao-concluidas">Ainda não feitas</option>
+    </select>
+
     <ul id="lista"></ul>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
