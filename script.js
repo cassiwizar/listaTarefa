@@ -39,7 +39,7 @@ function filtrarTarefas() {
     tarefas.forEach(tarefa => {
         const texto = tarefa.querySelector("span").textContent.toLowerCase();
         if (texto.includes(filtro)) {
-            tarefa.style.display = "block"; 
+            tarefa.style.display = "flex"; 
         } else {
             tarefa.style.display = "none";
         }
